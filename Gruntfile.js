@@ -9,13 +9,13 @@ module.exports = function(grunt) {
       js: {
         files: ['gruntfile.js', 'application.js', 'lib/**/*.js', 'test/**/*.js'],
         options: {
-          livereload: true
+          livereload: 34568
         }
       },
       html: {
         files: ['public/views/**', 'app/views/**'],
         options: {
-          livereload: true
+          livereload: 34568
         }
       }
     },
@@ -24,7 +24,7 @@ module.exports = function(grunt) {
         script: 'application.js',
         options: {
           args: [],
-          ignore: ['public/**'],
+          ignore: ['public/**', 'node_modules/**'],
           ext: 'js,html',
           nodeArgs: [],
           delayTime: 1,
@@ -36,7 +36,7 @@ module.exports = function(grunt) {
       }
     },
     concurrent: {
-      serve: ['nodemon', 'watch'],
+      serve: ['nodemon'],
       debug: ['node-inspector', 'shell:debug', 'open:debug'],
       options: {
         logConcurrentOutput: true
@@ -55,7 +55,7 @@ module.exports = function(grunt) {
            * or a remote instance.
            */
           var serviceMap = {
-            'SERVICE_GUID_1': 'http://127.0.0.1:8010',
+            '3axp2hk46g2aginkejtmojdm': 'http://127.0.0.1:9001',
             'SERVICE_GUID_2': 'https://host-and-path-to-service'
           };
           return JSON.stringify(serviceMap);
@@ -136,7 +136,7 @@ module.exports = function(grunt) {
       options: {
         jshintrc: true
       }
-    },
+    }
   });
 
   // Load NPM tasks
