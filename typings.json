@@ -1,0 +1,12 @@
+{
+  "name": "ts-example",
+  "version": false,
+  "dependencies": {
+    "bluebird": "github:typed-typings/npm-bluebird#92126fa3d066d07af9e93068e10a6800567c0551"
+  },
+  "ambientDependencies": {
+    "express": "github:DefinitelyTyped/DefinitelyTyped/express/express.d.ts#32f0a90dab26f70b206407ac24d4d622d0f0f408",
+    "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#32f0a90dab26f70b206407ac24d4d622d0f0f408",
+    "body-parser": "github:DefinitelyTyped/DefinitelyTyped/body-parser/body-parser.d.ts#32f0a90dab26f70b206407ac24d4d622d0f0f408"
+  }
+}

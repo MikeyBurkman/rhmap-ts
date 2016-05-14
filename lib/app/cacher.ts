@@ -3,32 +3,37 @@ var Promise = require('bluebird');
 var mbaasApi = Promise.promisifyAll(require('fh-mbaas-api'));
 var md5 = require('md5');
 
-module.exports = Cacher;
+export interface CacherArgs<T> {
+  fn: (key: any) => Promise<T>,
+  expire?: number,
+  keyTransform?: (key: any) => any
+}
 
-function Cacher(args) {
-  var fn = args.fn;
-  var expire = args.expire || 60;
-  var keyTransform = args.keyTransform || function(key) {
-    return md5(JSON.stringify(key));
-  };
+export class Cacher<T> {
   
-  this.get = function fromCache(key) {
-    var keyStr = keyTransform(key);
-    
-    console.log('Key = ', keyStr);
-    
+  private args: CacherArgs<T>;
+  
+  constructor(args: CacherArgs<T>) {
+    this.args = {
+      fn: args.fn,
+      expire: args.expire || 60,
+      keyTransform: args.keyTransform || ((key: string) => md5(JSON.stringify(key)))
+    };
+  }
+  
+  get(key): Promise<T> {
+    var keyStr = this.args.keyTransform(key);
+        
     return mbaasApi.cacheAsync({
       act: 'load',
       key: keyStr
     })
     .then(function(found) {
       if (found) {
-        console.log('### Found in cache');
         return JSON.parse(found);
       }
       
-      console.log('### Not found in cache');
-      return fn(key)
+      return this.args.fn(key)
     })
     .then(function(data) {
       // cache it asynchronously
@@ -36,7 +41,7 @@ function Cacher(args) {
         act: 'save',
         key: keyStr,
         value: JSON.stringify(data),
-        expire: expire
+        expire: this.args.expire
       })
       .catch(function(err) {
         console.error('Error saving to cache: ', err.stack);
