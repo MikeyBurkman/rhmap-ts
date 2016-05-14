@@ -10,7 +10,9 @@
     "fh-mbaas-api": "5.9.1",
     "md5": "~2.0.0",
     "request": "~2.40.0",
-    "source-map-support": "^0.4.0"
+    "source-map-support": "^0.4.0",
+    "typescript": "^1.8.10",
+    "typings": "^0.8.1"
   },
   "devDependencies": {
     "grunt-concurrent": "latest",
@@ -31,8 +33,6 @@
     "supertest": "0.8.2",
     "time-grunt": "^0.3.2",
     "del-cli": "^0.2.0",
-    "typescript": "^1.8.10",
-    "typings": "^0.8.1",
     "nodemon": "^1.9.2"
   },
   "main": "dist/application.js",
