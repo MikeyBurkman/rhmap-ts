@@ -1,7 +1,7 @@
 
-var Promise = require('bluebird');
-var mbaasApi = Promise.promisifyAll(require('fh-mbaas-api'));
-var md5 = require('md5');
+import Promise = require('bluebird');
+const mbaasApi:any = Promise.promisifyAll(require('fh-mbaas-api'));
+const md5:any = require('md5');
 
 export interface CacherArgs<T> {
   fn: (key: any) => Promise<T>,
