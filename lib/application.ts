@@ -5,6 +5,7 @@ import 'source-map-support/register'
 import * as express from 'express';
 import * as cors from 'cors';
 import * as db from './db';
+import {router as messageRouter} from './messageRoutes';
 
 const mbaasApi = require('fh-mbaas-api');
 
@@ -27,25 +28,14 @@ app.use('/mbaas', mbaasExpress.mbaas);
 // Note: important that this is added just before your own Routes
 app.use(mbaasExpress.fhmiddleware());
 
+// Test routes
 app.get('/', (req, res) => res.json({success: true}));
 app.get('/error', (req, res) => {
   throw new Error('Something wrong');
 });
 
-app.get('/messages', (req, res, next) => {
-  db.collection('messages')
-    .then(coll => coll.find().toArray())
-    .then(values => res.json(values))
-    .catch(next);
-});
-
-app.put('/messages', (req, res, next) => {
-  const body = req.body;
-  db.collection('messages')
-    .then(coll => coll.insert({body: body}))
-    .then(() => res.json(201))
-    .catch(next);
-});
+// Messages routes
+app.use(messageRouter);
 
 // Errors!
 app.use(function(err: Error, req: express.Request, res: express.Response, next: (err: Error) => void) {

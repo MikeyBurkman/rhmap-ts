@@ -6,7 +6,9 @@ const mongoUrl = process.env['FH_MONGODB_CONN_URL'] || 'mongodb://localhost:2701
 
 const dbPromise = MongoClient.connect(mongoUrl);
 
-export function collection(collectionName: string) {
+type collections = 'messages';
+
+export function collection(collectionName: collections) {
     return Promise.resolve(dbPromise)
         .then(db => db.collection(collectionName));
 }
