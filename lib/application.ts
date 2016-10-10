@@ -10,9 +10,6 @@ const mbaasApi = require('fh-mbaas-api');
 
 const mbaasExpress = mbaasApi.mbaasExpress();
 
-// list the endpoints which you want to make securable here
-const securableEndpoints = ['/hello'];
-
 mbaasApi.sync.init('messages', {}, function(err: Error|null) {
   if (err) {
     console.error('Error sync init: ', err.stack);
@@ -25,7 +22,6 @@ const app = express();
 app.use(cors());
 
 // Note: the order which we add middleware to Express here is important!
-app.use('/sys', mbaasExpress.sys(securableEndpoints));
 app.use('/mbaas', mbaasExpress.mbaas);
 
 // Note: important that this is added just before your own Routes
