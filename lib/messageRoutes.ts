@@ -12,8 +12,7 @@ export const router = Router();
 router.get('/messages', (req, res, next) => {
   db.collection('messages')
     .then(coll => coll.find().toArray())
-    .map((value: Message) => value.body)
-    .then(values => res.json(values))
+    .then((messages: Message[]) => res.json(messages.map(m => m.body)))
     .catch(next);
 });
 
