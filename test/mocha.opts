@@ -1,0 +1,4 @@
+--compilers ts-node/register
+--full-trace
+--bail
+lib/**/*.test.ts

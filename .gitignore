@@ -7,3 +7,4 @@ plato
 *.log
 lib/**/*.js
 lib/**/*.js.map
+.nyc_output
