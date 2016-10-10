@@ -26,8 +26,8 @@
   },
   "main": "lib/application.js",
   "scripts": {
-    "compile": "npm run clean && tsc --pretty",
-    "clean": "del lib/**/*.js && del lib/**/*.js.map",
+    "compile": "npm run clean && node_modules/.bin/tsc --pretty",
+    "clean": "node_modules/.bin/del lib/**/*.js && node_modules/.bin/del lib/**/*.js.map",
     "postinstall": "npm run compile",
     "start": "npm run compile && node lib/application.js"
   },
