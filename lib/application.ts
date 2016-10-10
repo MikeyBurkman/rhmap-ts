@@ -2,6 +2,7 @@
 import * as express from 'express';
 import {Request, Response} from 'express';
 import * as cors from 'cors';
+import * as db from './db';
 
 const mbaasApi = require('fh-mbaas-api');
 
@@ -44,6 +45,24 @@ app.use(function(err: any, req: Request, res: Response, next: (err: Error) => vo
 app.use(mbaasExpress.errorHandler());
 
 app.get('/', (req: Request, res: Response) => res.json({success: true}));
+app.get('/error', (req: Request, res: Response) => {
+  throw new Error('Something wrong');
+});
+
+app.get('/messages', (req, res, next) => {
+  db.collection('messages')
+    .then(coll => coll.find().toArray())
+    .then(values => res.json(values))
+    .catch(next);
+});
+
+app.put('/messages', (req, res, next) => {
+  const body = req.body;
+  db.collection('messages')
+    .then(coll => coll.insert({body: body}))
+    .then(() => res.json(201))
+    .catch(next);
+});
 
 const port = process.env.FH_PORT || process.env.OPENSHIFT_NODEJS_PORT || 8001;
 const host = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
