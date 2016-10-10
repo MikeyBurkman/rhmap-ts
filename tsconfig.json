@@ -16,7 +16,11 @@
     "sourceMap": false,
     "inlineSourceMap": true,
     "noImplicitReturns": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "baseUrl": ".",
+    "paths": {
+      "*": ["lib/*"]
+    }
   },
   "compileOnSave": true
 }

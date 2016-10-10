@@ -4,8 +4,7 @@ import 'source-map-support/register'
 
 import * as express from 'express';
 import * as cors from 'cors';
-import * as db from './db';
-import {router as messageRouter} from './messageRoutes';
+import messageRouter from 'messages/routes';
 
 const mbaasApi = require('fh-mbaas-api');
 
@@ -35,7 +34,7 @@ app.get('/error', (req, res) => {
 });
 
 // Messages routes
-app.use(messageRouter);
+app.use('/messages', messageRouter);
 
 // Errors!
 app.use(function(err: Error, req: express.Request, res: express.Response, next: (err: Error) => void) {
