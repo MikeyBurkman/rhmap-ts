@@ -17,6 +17,7 @@
     "fh-mbaas-api": "^5.14.1",
     "mongodb": "~2.1.18",
     "morgan": "~1.5.1",
+    "source-map-support": "^0.4.3",
     "typescript": "^v2.0.3"
   },
   "devDependencies": {
