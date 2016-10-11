@@ -9,8 +9,8 @@ export function getAllMessages(): Promise<Message[]> {
 
 export function insertMessage(body: any): Promise<any> {
     const message: Message = {
-        insertDate: new Date(),
-        body: body
+        body: body,
+        insertDate: new Date()
     };
     return db.collection('messages')
         .then(coll => coll.insert(message));
