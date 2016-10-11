@@ -11,6 +11,8 @@
         ".ts": "./node_modules/.bin/ts-node"
     },
 
+    "tslint.configFile": "tslint.json",
+
     "files.exclude": {
         "**/.git": true,
         "**/.svn": true,

@@ -1,6 +1,6 @@
 
 // Sourcemap support -- so we get nice stack traces
-import 'source-map-support/register'
+import 'source-map-support/register';
 
 import * as express from 'express';
 import * as cors from 'cors';

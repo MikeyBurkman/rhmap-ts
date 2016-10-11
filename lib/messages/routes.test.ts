@@ -19,7 +19,7 @@ describe(__filename, () => {
                 getAllMessages: sinon.stub(),
                 insertMessage: sinon.stub()
             }
-        }
+        };
 
         sut = proxyquire.load('./routes', mocks);
         app.use('/messages', sut.default);
@@ -37,7 +37,7 @@ describe(__filename, () => {
         request(app)
             .get('/messages')
             .expect((res: any) => {
-                expect(res.body).to.eql(['foo', 'bar'])
+                expect(res.body).to.eql(['foo', 'bar']);
             })
             .expect(200, done);
     });

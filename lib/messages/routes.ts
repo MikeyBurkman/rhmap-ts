@@ -1,6 +1,5 @@
 
 import {Router} from 'express';
-import {Message} from './types';
 import * as bodyParser from 'body-parser';
 import * as dao from './dao';
 
