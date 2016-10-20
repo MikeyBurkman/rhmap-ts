@@ -1,14 +1,15 @@
 
 import * as db from 'lib/db';
-import {Message} from './types';
+import * as Promise from 'bluebird';
+import { IMessage } from './types';
 
-export function getAllMessages(): Promise<Message[]> {
+export function getAllMessages(): Promise<IMessage[]> {
     return db.collection('messages')
         .then(coll => coll.find().toArray());
 }
 
 export function insertMessage(body: any): Promise<any> {
-    const message: Message = {
+    const message: IMessage = {
         body: body,
         insertDate: new Date()
     };

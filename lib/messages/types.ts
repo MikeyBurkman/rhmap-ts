@@ -1,5 +1,5 @@
 
-export interface Message {
+export interface IMessage {
   readonly insertDate: Date,
   readonly body: any;
 }

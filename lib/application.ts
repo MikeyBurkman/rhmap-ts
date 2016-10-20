@@ -2,17 +2,20 @@
 // Sourcemap support -- so we get nice stack traces
 import 'source-map-support/register';
 
+import * as mbaasApi from 'fh-mbaas-api';
 import * as express from 'express';
 import * as cors from 'cors';
-import messageRouter from 'lib/messages/routes';
-
-const mbaasApi = require('fh-mbaas-api');
+import * as messageRouter from 'lib/messages/routes';
 
 const mbaasExpress = mbaasApi.mbaasExpress();
 
-mbaasApi.sync.init('messages', {}, function(err: Error|null) {
+mbaasApi.sync.init('messages', {}, function (err) {
   if (err) {
-    console.error('Error sync init: ', err.stack);
+    if (err instanceof Error) {
+      console.error('Error sync init: ', err.stack);
+    } else {
+      console.error('Error sync init: ', err);
+    }
   }
 });
 
@@ -28,7 +31,7 @@ app.use('/mbaas', mbaasExpress.mbaas);
 app.use(mbaasExpress.fhmiddleware());
 
 // Test routes
-app.get('/', (req, res) => res.json({success: true}));
+app.get('/', (req, res) => res.json({ success: true }));
 app.get('/error', (req, res) => {
   throw new Error('Something wrong');
 });
@@ -37,7 +40,7 @@ app.get('/error', (req, res) => {
 app.use('/messages', messageRouter);
 
 // Errors!
-app.use(function(err: Error, req: express.Request, res: express.Response, next: (err: Error) => void) {
+app.use(function (err: Error, req: express.Request, res: express.Response, next: (err: Error) => void) {
   const stack = (err.stack || '').split('\n');
   res.status(500).json({
     msg: stack[0],
@@ -51,6 +54,6 @@ app.use(mbaasExpress.errorHandler());
 
 const port = process.env.FH_PORT || process.env.OPENSHIFT_NODEJS_PORT || 8100;
 const host = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
-app.listen(port, host, function() {
+app.listen(port, host, function () {
   console.log('App started at: ', new Date(), 'on port: ', port);
 });

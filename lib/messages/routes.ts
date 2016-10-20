@@ -1,18 +1,17 @@
 
-import {Router} from 'express';
+import { Router } from 'express';
 import * as bodyParser from 'body-parser';
 import * as dao from './dao';
 
 const router = Router();
-export default router;
 
 router.use(bodyParser.json());
 
 router.get('/', (req, res, next) => {
-  dao.getAllMessages()
-    .then(messages => messages.map(m => m.body))
-    .then(bodies => res.json(bodies))
-    .catch(next);
+    dao.getAllMessages()
+        .then(messages => messages.map(m => m.body))
+        .then(bodies => res.json(bodies))
+        .catch(next);
 });
 
 router.put('/', (req, res, next) => {
@@ -23,3 +22,5 @@ router.put('/', (req, res, next) => {
         .then(() => res.sendStatus(201))
         .catch(next);
 });
+
+export = router;

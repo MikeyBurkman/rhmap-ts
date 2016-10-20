@@ -1,13 +1,15 @@
 
+import 'mocha';
 import * as express from 'express';
 import * as sinon from 'sinon';
 import * as proxyquire from 'proxyquire';
 import * as request from 'supertest';
-import {expect} from 'chai';
+import { Router } from 'express';
+import { expect } from 'chai';
 
 describe(__filename, () => {
 
-    let sut: any;
+    let sut: Router;
     let app: express.Express;
     let mocks: any;
 
@@ -21,8 +23,8 @@ describe(__filename, () => {
             }
         };
 
-        sut = proxyquire.load('./routes', mocks);
-        app.use('/messages', sut.default);
+        sut = proxyquire('./routes', mocks);
+        app.use('/messages', sut);
     });
 
     it('Should get all messages from the dao', (done) => {
@@ -48,7 +50,7 @@ describe(__filename, () => {
         request(app)
             .put('/messages')
             .set('Content-Type', 'application/json')
-            .send({message: 'fooMessage'})
+            .send({ message: 'fooMessage' })
             .expect(() => {
                 expect(mocks['./dao'].insertMessage.callCount).to.eql(1);
                 const arg = mocks['./dao'].insertMessage.getCall(0).args[0];
@@ -61,7 +63,7 @@ describe(__filename, () => {
         request(app)
             .put('/messages')
             .set('Content-Type', 'application/json')
-            .send({nope: true})
+            .send({ nope: true })
             .expect(500, done);
     });
 });
