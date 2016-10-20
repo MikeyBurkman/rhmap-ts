@@ -6,6 +6,10 @@ const mongoUrl = process.env['FH_MONGODB_CONN_URL'] || 'mongodb://localhost:2701
 
 const dbPromise = MongoClient.connect(mongoUrl);
 
+export interface Id {
+    _id: string;
+}
+
 export type collections = 'messages' | 'pushNotificationTickets';
 
 export function collection(collectionName: collections): Promise<Collection> {
