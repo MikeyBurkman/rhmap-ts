@@ -4,7 +4,7 @@ import 'source-map-support/register';
 
 import * as express from 'express';
 import * as cors from 'cors';
-import messageRouter from 'messages/routes';
+import messageRouter from './messages/routes';
 
 const mbaasApi = require('fh-mbaas-api');
 
