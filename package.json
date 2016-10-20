@@ -6,7 +6,7 @@
     "compile": "node_modules/.bin/tsc --pretty",
     "clean": "del lib/*.js && del lib/**/*.js && del .nyc_output && del coverage",
     "postinstall": "npm run compile",
-    "start": "npm run compile && export NODE_PATH='./lib' && node lib/application.js",
+    "start": "npm run compile && export NODE_PATH='.' && node lib/application.js",
     "test": "export NODE_PATH='./lib' && nyc --require ts-node/register ./node_modules/.bin/_mocha"
   },
   "dependencies": {
