@@ -1,5 +1,5 @@
 
-import * as db from '../db';
+import * as db from 'lib/db';
 import {Message} from './types';
 
 export function getAllMessages(): Promise<Message[]> {

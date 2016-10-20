@@ -19,7 +19,7 @@
     "strictNullChecks": true,
     "baseUrl": ".",
     "paths": {
-      "*": ["lib/*"]
+      "*": ["*"]
     }
   },
   "compileOnSave": true
