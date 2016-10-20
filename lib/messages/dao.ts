@@ -1,11 +1,10 @@
 
-import {collection, Id} from 'lib/db';
+import * as db from 'lib/db';
 import * as Promise from 'bluebird';
 import { IMessage } from './types';
 
-export function getAllMessages(): Promise<(IMessage&Id)[]> {
-    return collection('messages')
-        .then(coll => coll.find().toArray());
+export function getAllMessages() {
+    return db.find<IMessage>('messages');
 }
 
 export function insertMessage(body: any): Promise<any> {
@@ -13,6 +12,5 @@ export function insertMessage(body: any): Promise<any> {
         body: body,
         insertDate: new Date()
     };
-    return collection('messages')
-        .then(coll => coll.insert(message));
+    return db.insert('messages', message);
 }

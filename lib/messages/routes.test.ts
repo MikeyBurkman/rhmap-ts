@@ -30,8 +30,10 @@ describe(__filename, () => {
     it('Should get all messages from the dao', (done) => {
 
         const mockMessages = [{
+            _id: '1',
             body: 'foo'
         }, {
+            _id: '2',
             body: 'bar'
         }];
         mocks['./dao'].getAllMessages.returns(Promise.resolve(mockMessages));
@@ -39,7 +41,10 @@ describe(__filename, () => {
         request(app)
             .get('/messages')
             .expect((res: any) => {
-                expect(res.body).to.eql(['foo', 'bar']);
+                expect(res.body).to.eql({
+                    1: 'foo',
+                    2: 'bar'
+                });
             })
             .expect(200, done);
     });

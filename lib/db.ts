@@ -16,3 +16,13 @@ export function collection(collectionName: collections): Promise<Collection> {
     return Promise.resolve(dbPromise)
         .then(db => db.collection(collectionName));
 }
+
+export function find<T>(collectionName: collections, query?: any): Promise<(T&Id)[]> {
+    return collection(collectionName)
+        .then(coll => coll.find(query).toArray());
+}
+
+export function insert<T>(collectionName: collections, record: T): Promise<any> {
+    return collection(collectionName)
+        .then(coll => coll.insert(record));
+}
