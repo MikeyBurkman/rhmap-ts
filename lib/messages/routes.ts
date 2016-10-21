@@ -1,5 +1,4 @@
 import {IMessage} from './types';
-
 import { Router } from 'express';
 import * as bodyParser from 'body-parser';
 import * as dao from './dao';

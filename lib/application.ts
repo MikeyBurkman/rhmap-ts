@@ -41,10 +41,13 @@ app.use('/messages', messageRouter);
 
 // Errors!
 app.use(function (err: Error, req: express.Request, res: express.Response, next: (err: Error) => void) {
+  const cwd = process.cwd();
   const stack = (err.stack || '').split('\n');
   res.status(500).json({
     msg: stack[0],
-    stack: stack.slice(1).map(s => s.replace(/^\s*at\s*/, ''))
+    stack: stack.slice(1)
+      .map(s => s.replace(cwd, '')) // Remove cwd to reduce the noise
+      .map(s => s.replace(/^\s*at\s*/, '')) // Remove unnecessary " at "
   });
   next(err);
 });
