@@ -24,6 +24,8 @@ const app = express();
 // Enable CORS for all requests
 app.use(cors());
 
+app.use('/sys', mbaasExpress.sys([]));
+
 // Note: the order which we add middleware to Express here is important!
 app.use('/mbaas', mbaasExpress.mbaas);
 
