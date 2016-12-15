@@ -24,3 +24,4 @@ A proof of concept of using [TypeScript](https://www.typescriptlang.org/) with R
 - `npm start` Start the server
 - `npm test` Run the tests
 - `npm run compile` Compile the code. (Both `start` and `test` automatically call this.)
+- `npm run clean` Delete all generated files. Generated files are in `.gitignore`, so no worry about accidentally checking them in.
