@@ -14,6 +14,12 @@ A proof of concept of using [TypeScript](https://www.typescriptlang.org/) with R
 - Uses [tslint](https://www.npmjs.com/package/tslint) to keep code styling consistent
 - Uses a combination of NODE_PATH and tsconfig baseUrls to allow importing modules relative to the `lib/` directory
 
+### Installation
+1. Clone this repo
+2. `npm i`. This will install all dependencies and compile the code
+3. The `.vscode` directory is included, which will set up everything you need to get started if editing in VS Code. (You're on your own if using a different editor.)
+
 ### Running locally
 - `npm start` Start the server
 - `npm test` Run the tests
+- `npm run compile` Compile the code. (Both `start` and `test` automatically call this.)
