@@ -8,23 +8,30 @@ const router = Router();
 
 router.use(bodyParser.json());
 
-router.get('/', (req, res, next) => {
-    dao.getAllMessages()
-        .then(groupById)
-        .then(messagesObj => res.json(messagesObj))
-        .catch(next);
+router.get('/', async (req, res, next) => {
+    try {
+        const messages = await dao.getAllMessages();
+        const grouped = groupById(messages);
+        res.json(grouped);
+    } catch (err) {
+        next(err);
+    }
 });
 
-router.put('/', (req, res, next) => {
+router.put('/', async (req, res, next) => {
     if (!req.body.message) {
         return next(new Error('Must provide a request body with a `message` property'));
     }
-    dao.insertMessage(req.body.message)
-        .then(() => res.sendStatus(201))
-        .catch(next);
+
+    try {
+        await dao.insertMessage(req.body.message);
+        res.sendStatus(201);
+    } catch (err) {
+        next(err);
+    }
 });
 
-function groupById(messages: (IMessage&Id)[]) {
+function groupById(messages: (IMessage&Id)[]): {[id: string]: IMessage} {
     return messages.reduce((acc, msg) => {
         acc[msg._id] = msg.body;
         return acc;
