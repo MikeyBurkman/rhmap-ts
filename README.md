@@ -18,6 +18,7 @@ A proof of concept of using [TypeScript](https://www.typescriptlang.org/) with R
 1. Clone this repo
 2. `npm i`. This will install all dependencies and compile the code
 3. The `.vscode` directory is included, which will set up everything you need to get started if editing in VS Code. (You're on your own if using a different editor.)
+4. All the TS code is in `/lib`. Do not edit any of the generated JS files. (The `.vscode` settings are set to not even show JS files, to avoid accidentally editing them.)
 
 ### Running locally
 - `npm start` Start the server
