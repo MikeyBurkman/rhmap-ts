@@ -31,7 +31,7 @@
     "mongodb": "~2.1.18",
     "morgan": "~1.5.1",
     "source-map-support": "^0.4.3",
-    "typescript": "^2.1.0-dev.20161102"
+    "typescript": "^2.1.4"
   },
   "devDependencies": {
     "ts-node": "^1.3.0",

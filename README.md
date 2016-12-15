@@ -13,3 +13,7 @@ A proof of concept of using [TypeScript](https://www.typescriptlang.org/) with R
 - Includes [VS Code](https://code.visualstudio.com/) config file to make IDE setup easy
 - Uses [tslint](https://www.npmjs.com/package/tslint) to keep code styling consistent
 - Uses a combination of NODE_PATH and tsconfig baseUrls to allow importing modules relative to the `lib/` directory
+
+### Running locally
+- `npm start` Start the server
+- `npm test` Run the tests

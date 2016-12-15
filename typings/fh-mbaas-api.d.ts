@@ -36,7 +36,7 @@ declare module 'fh-mbaas-api' {
     ge?: any;
     like?: any;
     in?: any;
-    index?: any;
+    index?: { [field: string]: 'ASC' | 'DESC' | '2D' };
   }
 
   interface CacheOptions {
