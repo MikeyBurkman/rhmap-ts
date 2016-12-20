@@ -18,6 +18,6 @@
         "**/.svn": true,
         "**/.hg": true,
         "**/.DS_Store": true,
-        "**/lib/**/*.js": true
+        "lib/**/*.js": true
     }
 }

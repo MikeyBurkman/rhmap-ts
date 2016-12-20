@@ -5,6 +5,7 @@ import 'source-map-support/register';
 import * as mbaasApi from 'fh-mbaas-api';
 import * as express from 'express';
 import * as cors from 'cors';
+import * as env from 'env-var'; 
 import * as messageRouter from 'lib/messages/routes';
 
 const mbaasExpress = mbaasApi.mbaasExpress();
@@ -57,8 +58,8 @@ app.use(function (err: Error, req: express.Request, res: express.Response, next:
 // Important that this is last!
 app.use(mbaasExpress.errorHandler());
 
-const port = process.env.FH_PORT || process.env.OPENSHIFT_NODEJS_PORT || 8100;
-const host = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
+const port = env('FH_PORT', env('OPENSHIFT_NODEJS_PORT', '8100').asString()).asPositiveInt();
+const host = env('OPENSHIFT_NODEJS_IP', '0.0.0.0').asString();
 app.listen(port, host, function () {
   console.log('App started at: ', new Date(), 'on port: ', port);
 });
