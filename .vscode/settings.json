@@ -1,7 +1,6 @@
 // Place your settings in this file to overwrite default and user settings.
-{    
+{
     "typescript.tsdk": "node_modules/typescript/lib",
-
     "code-runner.executorMap": {
         "typescript": "./node_modules/.bin/ts-node",
         "js": "cecil"
@@ -10,9 +9,8 @@
     "code-runner.executorMapByFileExtension": {
         ".ts": "./node_modules/.bin/ts-node"
     },
-
-    "tslint.configFile": "tslint.json",
-
+    "typescript.referencesCodeLens.enabled": true,
+    "typescript.implementationsCodeLens.enabled": true,
     "files.exclude": {
         "**/.git": true,
         "**/.svn": true,

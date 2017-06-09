@@ -23,7 +23,8 @@ export function find<T>(collectionName: collections, query?: any): Promise<(T&Id
         .then(coll => coll.find(query).toArray());
 }
 
-export function insert<T>(collectionName: collections, record: T): Promise<any> {
+export function insert<T>(collectionName: collections, record: T): Promise<(T&Id)> {
     return collection(collectionName)
-        .then(coll => coll.insert(record));
+        .then(coll => coll.insert(record))
+        .then(res => res.ops[0])
 }
