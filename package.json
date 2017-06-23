@@ -5,7 +5,7 @@
   "scripts": {
     "compile": "node_modules/.bin/tsc --pretty",
     "clean": "del lib/*.js && del lib/**/*.js && del .nyc_output && del coverage",
-    "postinstall": "npm run compile && echo \"Using dependencies: `npm list --depth=0`\"",
+    "postinstall": "npm run compile",
     "start": "npm run compile && env NODE_PATH='.' node lib/application.js",
     "test": "npm run compile && export NODE_PATH='.' && nyc --require ts-node/register ./node_modules/.bin/_mocha"
   },

@@ -8,6 +8,15 @@ import * as cors from 'cors';
 import * as env from 'env-var'; 
 import * as messageRouter from 'lib/messages/routes';
 
+import {exec} from 'child_process';
+exec('npm ls --depth=0', function(err, stdout, stderr) {
+  if (err) {
+    return console.error(err);
+  }
+  console.log(stdout);
+  console.error(stderr);
+});
+
 const mbaasExpress = mbaasApi.mbaasExpress();
 
 mbaasApi.sync.init('messages', {}, function (err) {
