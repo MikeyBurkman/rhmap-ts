@@ -8,15 +8,13 @@
     "experimentalDecorators": false,
     "emitDecoratorMetadata": false,
     "declaration": false,
-    "noImplicitAny": true,
     "removeComments": true,
     "noLib": false,
     "preserveConstEnums": true,
     "suppressImplicitAnyIndexErrors": true,
     "sourceMap": false,
     "inlineSourceMap": true,
-    "noImplicitReturns": true,
-    "strictNullChecks": true,
+    "strict": true,
     "baseUrl": ".",
     "paths": {
       "*": ["*"]
