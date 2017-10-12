@@ -2,7 +2,7 @@ import {IMessage} from './types';
 import { Router } from 'express';
 import * as bodyParser from 'body-parser';
 import * as dao from './dao';
-import {Id} from 'lib/db';
+import {Id} from '../db';
 
 const router = Router();
 

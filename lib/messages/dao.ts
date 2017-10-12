@@ -1,5 +1,5 @@
 
-import * as db from 'lib/db';
+import * as db from '../db';
 import * as Promise from 'bluebird';
 import { IMessage } from './types';
 

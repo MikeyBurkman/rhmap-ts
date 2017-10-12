@@ -6,7 +6,7 @@ import * as mbaasApi from 'fh-mbaas-api';
 import * as express from 'express';
 import * as cors from 'cors';
 import * as env from 'env-var'; 
-import * as messageRouter from 'lib/messages/routes';
+import * as messageRouter from './messages/routes';
 
 import {exec} from 'child_process';
 exec('npm ls --depth=0', function(err, stdout, stderr) {

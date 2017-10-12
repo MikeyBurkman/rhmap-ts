@@ -8,18 +8,14 @@
     "experimentalDecorators": false,
     "emitDecoratorMetadata": false,
     "declaration": false,
-    "removeComments": true,
+    "removeComments": false,
     "noLib": false,
     "preserveConstEnums": true,
     "suppressImplicitAnyIndexErrors": true,
     "sourceMap": false,
     "inlineSourceMap": true,
     "strict": true,
-    "skipLibCheck": true,
-    "baseUrl": ".",
-    "paths": {
-      "*": ["*"]
-    }
+    "skipLibCheck": true
   },
   "compileOnSave": true
 }
