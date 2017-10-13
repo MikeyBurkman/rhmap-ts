@@ -1,16 +1,33 @@
 
-import * as db from '../db';
 import * as Promise from 'bluebird';
 import { IMessage } from './types';
+import {Db, Id} from '../db';
 
-export function getAllMessages() {
-    return db.find<IMessage>('messages');
+export {
+    Dao,
+    dao
 }
 
-export function insertMessage(body: any): Promise<any> {
-    const message: IMessage = {
-        body: body,
-        insertDate: new Date()
+interface Dao {
+    getAllMessages: () => Promise<(IMessage&Id)[]>;
+    insertMessage: (body: any) => Promise<IMessage&Id>;
+}
+
+function dao(db: Db): Dao {
+    return {
+        getAllMessages,
+        insertMessage
     };
-    return db.insert('messages', message);
+
+    function getAllMessages() {
+        return db.find<IMessage>('messages');
+    }
+    
+    function insertMessage(body: any) {
+        const message: IMessage = {
+            body: body,
+            insertDate: new Date()
+        };
+        return db.insert('messages', message);
+    }
 }

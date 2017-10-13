@@ -2,8 +2,9 @@
 import 'mocha';
 import * as express from 'express';
 import * as sinon from 'sinon';
-import * as proxyquire from 'proxyquire';
 import * as request from 'supertest';
+import {Dao} from './dao';
+import {buildRouter} from './routes';
 import { Router } from 'express';
 import { expect } from 'chai';
 
@@ -11,19 +12,18 @@ describe(__filename, () => {
 
     let sut: Router;
     let app: express.Express;
-    let mocks: any;
+    let dao: Dao;
 
     beforeEach(() => {
         app = express();
 
-        mocks = {
-            './dao': {
-                getAllMessages: sinon.stub(),
-                insertMessage: sinon.stub()
-            }
+        dao = {
+            getAllMessages: sinon.stub(),
+            insertMessage: sinon.stub()
         };
 
-        sut = proxyquire('./routes', mocks);
+        sut = buildRouter(dao);
+
         app.use('/messages', sut);
     });
 
@@ -36,7 +36,7 @@ describe(__filename, () => {
             _id: '2',
             body: 'bar'
         }];
-        mocks['./dao'].getAllMessages.returns(Promise.resolve(mockMessages));
+        //dao.getAllMessages.returns(Promise.resolve(mockMessages));
 
         request(app)
             .get('/messages')
@@ -50,16 +50,16 @@ describe(__filename, () => {
     });
 
     it('Should insert a record into the dao', (done) => {
-        mocks['./dao'].insertMessage.returns(Promise.resolve());
+        //dao.insertMessage.returns(Promise.resolve());
 
         request(app)
             .put('/messages')
             .set('Content-Type', 'application/json')
             .send({ message: 'fooMessage' })
             .expect(() => {
-                expect(mocks['./dao'].insertMessage.callCount).to.eql(1);
-                const arg = mocks['./dao'].insertMessage.getCall(0).args[0];
-                expect(arg).to.eql('fooMessage');
+                //expect(dao.insertMessage.callCount).to.eql(1);
+                //const arg = dao.insertMessage.getCall(0).args[0];
+                //expect(arg).to.eql('fooMessage');
             })
             .expect(201, done);
     });
