@@ -48,6 +48,7 @@
   "license": "MIT",
   "nyc": {
     "include": [
+      "lib/**/*.ts"
     ],
     "exclude": [
       "**/*.d.ts"

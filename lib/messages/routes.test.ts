@@ -7,12 +7,13 @@ import {Dao} from './dao';
 import {buildRouter} from './routes';
 import { Router } from 'express';
 import { expect } from 'chai';
+import {Sinonized} from '../testUtil'
 
 describe(__filename, () => {
 
     let sut: Router;
     let app: express.Express;
-    let dao: Dao;
+    let dao: Sinonized<Dao>;
 
     beforeEach(() => {
         app = express();
@@ -36,7 +37,7 @@ describe(__filename, () => {
             _id: '2',
             body: 'bar'
         }];
-        //dao.getAllMessages.returns(Promise.resolve(mockMessages));
+        dao.getAllMessages.returns(Promise.resolve(mockMessages));
 
         request(app)
             .get('/messages')
@@ -50,16 +51,16 @@ describe(__filename, () => {
     });
 
     it('Should insert a record into the dao', (done) => {
-        //dao.insertMessage.returns(Promise.resolve());
+        dao.insertMessage.returns(Promise.resolve());
 
         request(app)
             .put('/messages')
             .set('Content-Type', 'application/json')
             .send({ message: 'fooMessage' })
             .expect(() => {
-                //expect(dao.insertMessage.callCount).to.eql(1);
-                //const arg = dao.insertMessage.getCall(0).args[0];
-                //expect(arg).to.eql('fooMessage');
+                expect(dao.insertMessage.callCount).to.eql(1);
+                const arg = dao.insertMessage.getCall(0).args[0];
+                expect(arg).to.eql('fooMessage');
             })
             .expect(201, done);
     });
