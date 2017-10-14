@@ -8,21 +8,21 @@ type Sinon = typeof _stub;
  * Assumes that all fields in T are functions, and wraps them
  * as if they were both the original function, and also sinon stubs.
  * 
- * let dao: Sinonized<Dao>
+ * let dao: Stubbed<Dao>
  */
-type Sinonized<T> = {
+type Stubbed<T> = {
     [P in keyof T]: T[P]&Sinon;
 }
 
 /**
- * Similar to Sinonized, except the first generic contains only the fields
+ * Similar to Stubbed, except the first generic contains only the fields
  * that need to be mocked. You'll need to intersection type it with T
  * so that it still contains all the original fields.
  * 
- * let dao: Dao&SinonizedPartial<Dao, 'find'|'remove'>
+ * let dao: Dao&PartialStubbed<Dao, 'find'|'remove'>
  */
-type SinonizedPartial<T, K extends string & keyof T> = {
+type PartialStubbed<T, K extends string & keyof T> = {
     [P in K]: T[P]&Sinon;
 }
 
-export { Sinonized, SinonizedPartial }
+export { Stubbed, PartialStubbed }

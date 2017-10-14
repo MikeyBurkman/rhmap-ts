@@ -7,13 +7,13 @@ import {Dao} from './dao';
 import {buildRouter} from './routes';
 import { Router } from 'express';
 import { expect } from 'chai';
-import {Sinonized} from '../testUtil'
+import {Stubbed} from '../testUtil'
 
 describe(__filename, () => {
 
     let sut: Router;
     let app: express.Express;
-    let dao: Sinonized<Dao>;
+    let dao: Stubbed<Dao>;
 
     beforeEach(() => {
         app = express();
