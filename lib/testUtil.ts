@@ -8,7 +8,7 @@ import 'jest';
  * let dao: Stubbed<Dao>
  */
 type Stubbed<T> = {
-    [P in keyof T]: T[P]&jest.Mock<T[P]>;
+    [P in keyof T]: T[P] & jest.Mock<T[P]>;
 }
 
 /**
@@ -19,7 +19,7 @@ type Stubbed<T> = {
  * let dao: Dao&PartialStubbed<Dao, 'find'|'remove'>
  */
 type PartialStubbed<T, K extends string & keyof T> = {
-    [P in K]: T[P]&jest.Mock<T[P]>;
+    [P in K]: T[P] & jest.Mock<T[P]>;
 }
 
 export { Stubbed, PartialStubbed }

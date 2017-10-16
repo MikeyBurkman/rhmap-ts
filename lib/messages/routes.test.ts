@@ -50,7 +50,7 @@ describe('#GET /', () => {
 
     test('Should get an error if the dao throws one', () => {
         dao.getAllMessages.mockReturnValue(Promise.reject(new Error('Oh noes')));
-    
+
         return request(app)
             .get('/')
             .expect(500)

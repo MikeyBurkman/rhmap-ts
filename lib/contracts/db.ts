@@ -9,7 +9,7 @@ export {
 };
 
 interface Id {
-    _id: string;
+    readonly _id: string;
 }
 
 type collections = 'messages' | 'pushNotificationTickets';

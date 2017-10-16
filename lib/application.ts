@@ -5,11 +5,11 @@ import 'source-map-support/register';
 import * as mbaasApi from 'fh-mbaas-api';
 import * as express from 'express';
 import * as cors from 'cors';
-import * as env from 'env-var'; 
+import * as env from 'env-var';
 import messageRouter from './messages';
 
-import {exec} from 'child_process';
-exec('npm ls --depth=0', function(err, stdout, stderr) {
+import { exec } from 'child_process';
+exec('npm ls --depth=0', function (err, stdout, stderr) {
   if (err) {
     return console.error(err);
   }
