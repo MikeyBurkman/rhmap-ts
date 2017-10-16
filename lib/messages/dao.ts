@@ -1,7 +1,7 @@
 
 import * as Promise from 'bluebird';
-import { Message, Dao } from '../contracts/messages';
 import { Db, Id } from '../contracts/db';
+import { Dao, Message } from '../contracts/messages';
 
 export default dao;
 
@@ -17,7 +17,7 @@ function dao(db: Db): Dao {
 
     function insertMessage(body: any) {
         const message: Message = {
-            body: body,
+            body,
             insertDate: new Date()
         };
         return db.insert('messages', message);

@@ -7,7 +7,9 @@
     "clean": "del lib/*.js && del lib/**/*.js && del coverage",
     "postinstall": "npm run compile",
     "start": "npm run compile && env NODE_PATH='.' node lib/application.js",
-    "test": "npm run clean && npm run compile && jest && node remap-coverage.js && del coverage-raw"
+    "lint": "tslint --fix -c ./tslint.json lib/**/*.ts",
+    "unit-test": "jest && node remap-coverage.js && del coverage-raw",
+    "test": "npm run clean && npm run compile && npm run lint && npm run unit-test"
   },
   "dependencies": {
     "@types/bluebird": "3.5.15",
@@ -37,6 +39,7 @@
     "remap-istanbul": "0.9.5",
     "supertest-as-promised": "4.0.2",
     "ts-jest": "20.0.14",
+    "ts-lint": "4.5.1",
     "ts-node": "3.3.0"
   },
   "license": "MIT"

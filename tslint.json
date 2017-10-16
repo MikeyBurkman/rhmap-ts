@@ -3,6 +3,7 @@
     "rules": {
         "quotemark": [true, "single", "avoid-escape"],
         "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
-        "no-string-literal": false
+        "no-string-literal": false,
+        "interface-name": false
     }
 }

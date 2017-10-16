@@ -1,12 +1,12 @@
 
-import 'jest';
 import * as Promise from 'bluebird';
 import * as express from 'express';
-import * as request from 'supertest-as-promised';
 import { Router } from 'express';
+import 'jest';
+import * as request from 'supertest-as-promised';
 import { Dao } from '../contracts/messages';
+import { Stubbed } from '../testUtil';
 import buildRouter from './routes';
-import { Stubbed } from '../testUtil'
 
 let sut: Router;
 let app: express.Express;

@@ -1,10 +1,10 @@
 
 import * as Bluebird from 'bluebird';
-import { Message } from '../contracts/messages';
-import { Router } from 'express';
 import * as bodyParser from 'body-parser';
-import { Dao } from '../contracts/messages';
+import { Router } from 'express';
 import { Id } from '../contracts/db';
+import { Message } from '../contracts/messages';
+import { Dao } from '../contracts/messages';
 
 export default buildRouter;
 
@@ -38,11 +38,10 @@ function buildRouter(dao: Dao): Router {
 
     return router;
 
-    function groupById(messages: (Message & Id)[]): { [id: string]: Message } {
+    function groupById(messages: Array<Message & Id>): { [id: string]: Message } {
         return messages.reduce((acc, msg) => {
             acc[msg._id] = msg.body;
             return acc;
         }, {});
     }
 }
-
