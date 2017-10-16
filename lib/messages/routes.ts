@@ -1,16 +1,18 @@
-import {IMessage} from './types';
+
+import * as Bluebird from 'bluebird';
+import { Message } from '../contracts/messages';
 import { Router } from 'express';
 import * as bodyParser from 'body-parser';
-import {Dao} from './dao';
-import {Id} from '../db';
+import { Dao } from '../contracts/messages';
+import { Id } from '../contracts/db';
 
-export { buildRouter };
+export default buildRouter;
 
 function buildRouter(dao: Dao): Router {
     const router = Router();
-    
+
     router.use(bodyParser.json());
-    
+
     router.get('/', async (req, res, next) => {
         try {
             const messages = await dao.getAllMessages();
@@ -20,12 +22,12 @@ function buildRouter(dao: Dao): Router {
             next(err);
         }
     });
-    
+
     router.put('/', async (req, res, next) => {
         if (!req.body.message) {
             return next(new Error('Must provide a request body with a `message` property'));
         }
-    
+
         try {
             await dao.insertMessage(req.body.message);
             res.sendStatus(201);
@@ -35,8 +37,8 @@ function buildRouter(dao: Dao): Router {
     });
 
     return router;
-    
-    function groupById(messages: (IMessage&Id)[]): {[id: string]: IMessage} {
+
+    function groupById(messages: (Message & Id)[]): { [id: string]: Message } {
         return messages.reduce((acc, msg) => {
             acc[msg._id] = msg.body;
             return acc;

@@ -1,8 +1,5 @@
 
-import * as sinon from 'sinon';
-
-const _stub = sinon.stub();
-type Sinon = typeof _stub;
+import 'jest';
 
 /**
  * Assumes that all fields in T are functions, and wraps them
@@ -11,7 +8,7 @@ type Sinon = typeof _stub;
  * let dao: Stubbed<Dao>
  */
 type Stubbed<T> = {
-    [P in keyof T]: T[P]&Sinon;
+    [P in keyof T]: T[P]&jest.Mock<T[P]>;
 }
 
 /**
@@ -22,7 +19,7 @@ type Stubbed<T> = {
  * let dao: Dao&PartialStubbed<Dao, 'find'|'remove'>
  */
 type PartialStubbed<T, K extends string & keyof T> = {
-    [P in K]: T[P]&Sinon;
+    [P in K]: T[P]&jest.Mock<T[P]>;
 }
 
 export { Stubbed, PartialStubbed }

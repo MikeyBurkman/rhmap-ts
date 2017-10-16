@@ -1,9 +1,9 @@
 
-import {dao} from './dao';
-import {db} from '../db';
-import {buildRouter} from './routes';
+import db from '../db';
+import messageDao from './dao';
+import buildRouter from './routes';
 
-const daoInstance = dao(db);
+const daoInstance = messageDao(db);
 
 const routerInstance = buildRouter(daoInstance);
 
