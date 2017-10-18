@@ -42,5 +42,8 @@
     "ts-lint": "4.5.1",
     "ts-node": "3.3.0"
   },
+  "engines": {
+    "node": ">=6"
+  },
   "license": "MIT"
 }
