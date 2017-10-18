@@ -2,8 +2,8 @@ node_modules
 *~
 cov-*
 coverage
+coverage-raw
 plato
 *.log
 lib/**/*.js
 lib/**/*.js.map
-.nyc_output

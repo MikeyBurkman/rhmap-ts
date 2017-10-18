@@ -1,33 +1,32 @@
 
-import 'mocha';
+import * as Promise from 'bluebird';
 import * as express from 'express';
-import * as sinon from 'sinon';
-import * as proxyquire from 'proxyquire';
-import * as request from 'supertest';
 import { Router } from 'express';
-import { expect } from 'chai';
+import 'jest';
+import { Dao } from 'lib/contracts/messages';
+import { Stubbed } from 'lib/testUtil';
+import * as request from 'supertest-as-promised';
+import buildRouter from './routes';
 
-describe(__filename, () => {
+let sut: Router;
+let app: express.Express;
+let dao: Stubbed<Dao>;
 
-    let sut: Router;
-    let app: express.Express;
-    let mocks: any;
+beforeEach(() => {
+    app = express();
 
-    beforeEach(() => {
-        app = express();
+    dao = {
+        getAllMessages: jest.fn(),
+        insertMessage: jest.fn()
+    };
 
-        mocks = {
-            './dao': {
-                getAllMessages: sinon.stub(),
-                insertMessage: sinon.stub()
-            }
-        };
+    sut = buildRouter(dao);
 
-        sut = proxyquire('./routes', mocks);
-        app.use('/messages', sut);
-    });
+    app.use('/', sut);
+});
 
-    it('Should get all messages from the dao', (done) => {
+describe('#GET /', () => {
+    it('Should get all messages from the dao', () => {
 
         const mockMessages = [{
             _id: '1',
@@ -36,39 +35,63 @@ describe(__filename, () => {
             _id: '2',
             body: 'bar'
         }];
-        mocks['./dao'].getAllMessages.returns(Promise.resolve(mockMessages));
+        dao.getAllMessages.mockReturnValue(Promise.resolve(mockMessages));
 
-        request(app)
-            .get('/messages')
+        return request(app)
+            .get('/')
             .expect((res: any) => {
-                expect(res.body).to.eql({
+                expect(res.body).toEqual({
                     1: 'foo',
                     2: 'bar'
                 });
             })
-            .expect(200, done);
+            .expect(200);
     });
 
-    it('Should insert a record into the dao', (done) => {
-        mocks['./dao'].insertMessage.returns(Promise.resolve());
+    test('Should get an error if the dao throws one', () => {
+        dao.getAllMessages.mockReturnValue(Promise.reject(new Error('Oh noes')));
 
-        request(app)
-            .put('/messages')
+        return request(app)
+            .get('/')
+            .expect(500)
+            .expect((res: any) => {
+                expect(res.error.text).toContain('Oh noes');
+            });
+    });
+});
+
+describe('#PUT /', () => {
+    test('Should insert a record into the dao', () => {
+        dao.insertMessage.mockReturnValue(Promise.resolve());
+
+        return request(app)
+            .put('/')
             .set('Content-Type', 'application/json')
             .send({ message: 'fooMessage' })
             .expect(() => {
-                expect(mocks['./dao'].insertMessage.callCount).to.eql(1);
-                const arg = mocks['./dao'].insertMessage.getCall(0).args[0];
-                expect(arg).to.eql('fooMessage');
+                expect(dao.insertMessage).toBeCalledWith('fooMessage');
             })
-            .expect(201, done);
+            .expect(201);
     });
 
-    it('Should get an error on malformed request', (done) => {
-        request(app)
-            .put('/messages')
+    test('Should get an error on malformed request', () => {
+        return request(app)
+            .put('/')
             .set('Content-Type', 'application/json')
             .send({ nope: true })
-            .expect(500, done);
+            .expect(500);
+    });
+
+    test('Should get an error if the dao throws one', () => {
+        dao.insertMessage.mockReturnValue(Promise.reject(new Error('Oh noes')));
+
+        return request(app)
+            .put('/')
+            .set('Content-Type', 'application/json')
+            .send({ message: 'fooMessage' })
+            .expect(500)
+            .expect((res: any) => {
+                expect(res.error.text).toContain('Oh noes');
+            });
     });
 });

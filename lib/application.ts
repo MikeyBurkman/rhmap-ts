@@ -2,32 +2,13 @@
 // Sourcemap support -- so we get nice stack traces
 import 'source-map-support/register';
 
-import * as mbaasApi from 'fh-mbaas-api';
-import * as express from 'express';
 import * as cors from 'cors';
-import * as env from 'env-var'; 
-import * as messageRouter from './messages/routes';
-
-import {exec} from 'child_process';
-exec('npm ls --depth=0', function(err, stdout, stderr) {
-  if (err) {
-    return console.error(err);
-  }
-  console.log(stdout);
-  console.error(stderr);
-});
+import * as env from 'env-var';
+import * as express from 'express';
+import * as mbaasApi from 'fh-mbaas-api';
+import messageRouter from 'lib/messages';
 
 const mbaasExpress = mbaasApi.mbaasExpress();
-
-mbaasApi.sync.init('messages', {}, function (err) {
-  if (err) {
-    if (err instanceof Error) {
-      console.error('Error sync init: ', err.stack);
-    } else {
-      console.error('Error sync init: ', err);
-    }
-  }
-});
 
 const app = express();
 
@@ -58,8 +39,8 @@ app.use(function (err: Error, req: express.Request, res: express.Response, next:
   res.status(500).json({
     msg: stack[0],
     stack: stack.slice(1)
-      .map(s => s.replace(cwd, '')) // Remove cwd to reduce the noise
-      .map(s => s.replace(/^\s*at\s*/, '')) // Remove unnecessary " at "
+      .map((s) => s.replace(cwd, '')) // Remove cwd to reduce the noise
+      .map((s) => s.replace(/^\s*at\s*/, '')) // Remove unnecessary " at "
   });
   next(err);
 });
@@ -67,7 +48,7 @@ app.use(function (err: Error, req: express.Request, res: express.Response, next:
 // Important that this is last!
 app.use(mbaasExpress.errorHandler());
 
-const port = env('FH_PORT', env('OPENSHIFT_NODEJS_PORT', '8100').asString()).asPositiveInt();
+const port = env('FH_PORT', env('OPENSHIFT_NODEJS_PORT', '8080').asString()).asPositiveInt();
 const host = env('OPENSHIFT_NODEJS_IP', '0.0.0.0').asString();
 app.listen(port, host, function () {
   console.log('App started at: ', new Date(), 'on port: ', port);
