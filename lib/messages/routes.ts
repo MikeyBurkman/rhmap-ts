@@ -2,9 +2,8 @@
 import * as Bluebird from 'bluebird';
 import * as bodyParser from 'body-parser';
 import { Router } from 'express';
-import { Id } from '../contracts/db';
-import { Message } from '../contracts/messages';
-import { Dao } from '../contracts/messages';
+import { Id } from 'lib/contracts/db';
+import { Dao, Message } from 'lib/contracts/messages';
 
 export default buildRouter;
 

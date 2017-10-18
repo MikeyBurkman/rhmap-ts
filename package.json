@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "main": "lib/application.js",
   "scripts": {
-    "compile": "node_modules/.bin/tsc --pretty",
     "clean": "del lib/*.js && del lib/**/*.js && del coverage",
+    "compile": "node_modules/.bin/tsc --pretty",
     "postinstall": "npm run compile",
     "start": "npm run compile && env NODE_PATH='.' node lib/application.js",
-    "lint": "tslint --fix -c ./tslint.json lib/**/*.ts",
+    "lint": "tslint --fix -c ./tslint.json lib/*.ts lib/**/*.ts",
     "unit-test": "jest && node remap-coverage.js && del coverage-raw",
     "test": "npm run clean && npm run compile && npm run lint && npm run unit-test"
   },
@@ -27,7 +27,7 @@
     "cors": "2.8.4",
     "env-var": "2.4.3",
     "express": "4.11.2",
-    "fh-mbaas-api": "5.14.2",
+    "fh-mbaas-api": "6.1.8",
     "mongodb": "2.2.31",
     "morgan": "1.5.3",
     "source-map-support": "0.4.18",

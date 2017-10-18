@@ -3,9 +3,9 @@ import * as Promise from 'bluebird';
 import * as express from 'express';
 import { Router } from 'express';
 import 'jest';
+import { Dao } from 'lib/contracts/messages';
+import { Stubbed } from 'lib/testUtil';
 import * as request from 'supertest-as-promised';
-import { Dao } from '../contracts/messages';
-import { Stubbed } from '../testUtil';
 import buildRouter from './routes';
 
 let sut: Router;

@@ -1,7 +1,7 @@
 
 import * as Promise from 'bluebird';
-import { Db, Id } from '../contracts/db';
-import { Dao, Message } from '../contracts/messages';
+import { Db, Id } from 'lib/contracts/db';
+import { Dao, Message } from 'lib/contracts/messages';
 
 export default dao;
 

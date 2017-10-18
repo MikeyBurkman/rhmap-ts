@@ -1,5 +1,6 @@
 // Place your settings in this file to overwrite default and user settings.
 {
+    "tslint.enable": true,
     "files.insertFinalNewline": true,
     "typescript.tsdk": "node_modules/typescript/lib",
     "code-runner.executorMap": {

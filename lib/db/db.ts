@@ -1,7 +1,7 @@
 
 import * as Promise from 'bluebird';
+import * as DB from 'lib/contracts/db';
 import { Collection, MongoClient } from 'mongodb';
-import * as DB from '../contracts/db';
 
 export default buildDb;
 

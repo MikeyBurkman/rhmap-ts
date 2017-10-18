@@ -1,6 +1,6 @@
 
 import * as Promise from 'bluebird';
-import { Id } from './db';
+import { Id } from 'lib/contracts/db';
 
 export interface Message {
   readonly insertDate: Date;

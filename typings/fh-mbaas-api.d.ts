@@ -1,6 +1,7 @@
-// Type definitions for fh-mbaas-api 5.0.0
+// Type definitions for fh-mbaas-api 5.0.0. (It still needs to be verified with version 8.x of the api)
 // Project: https://github.com/feedhenry/fh-mbaas-api
 // Definitions by: Michael Burkman <https://github.com/MikeyBurkman>
+// NOTE: These are kind of beta and not officially sanctioned... YMMV
 
 declare module 'fh-mbaas-api' {
 
@@ -47,8 +48,9 @@ declare module 'fh-mbaas-api' {
   }
 
   interface SyncInitOptions {
-    sync_frequency?: number;
-    logLevel?: 'silly' | 'verbose' | 'info' | 'warn' | 'debug' | 'error';
+    syncFrequency?: number;
+    clientSyncTimeout?: number;
+    backendListTimeout?: number;
   }
 
   interface SyncInterceptParams {
