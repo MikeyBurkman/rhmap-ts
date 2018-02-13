@@ -38,9 +38,10 @@ function buildRouter(dao: Dao): Router {
     return router;
 
     function groupById(messages: Array<Message & Id>): { [id: string]: Message } {
-        return messages.reduce((acc, msg) => {
-            acc[msg._id] = msg.body;
-            return acc;
-        }, {});
+        const res: { [id: string]: Message } = {};
+        messages.forEach((msg) => {
+            res[msg._id] = msg;
+        });
+        return res;
     }
 }
