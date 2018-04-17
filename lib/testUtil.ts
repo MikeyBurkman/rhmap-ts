@@ -7,19 +7,27 @@ import 'jest';
  *
  * let dao: Stubbed<Dao>
  */
-type Stubbed<T> = {
+export type Stubbed<T> = {
     [P in keyof T]: T[P] & jest.Mock<T[P]>;
 };
 
 /**
- * Similar to Stubbed, except the first generic contains only the fields
- * that need to be mocked. You'll need to intersection type it with T
- * so that it still contains all the original fields.
- *
- * let dao: Dao&PartialStubbed<Dao, 'find'|'remove'>
+ * Use this for a dependency in a test when you don't expect it to ever be used.
+ * It will always throw an error when it is used in any way.
  */
-type PartialStubbed<T, K extends string & keyof T> = {
-    [P in K]: T[P] & jest.Mock<T[P]>;
-};
+export const whatever = buildFailingProxy();
 
-export { Stubbed, PartialStubbed }
+/**
+ * Builds a Proxy object that will always throw an error when you try to access anything on it
+ * or call it as a function.
+ */
+function buildFailingProxy(): any {
+  return new Proxy(() => null, {
+    get: (obj, prop) => {
+      throw new Error(`Tried to call "${prop}" on a mock dependency`);
+    },
+    apply: (target, that, args) => {
+      throw new Error(`Tried to call a mock as a function with args "${args}"`);
+    }
+  });
+}
